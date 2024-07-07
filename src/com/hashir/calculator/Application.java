@@ -1,7 +1,7 @@
 package com.hashir.calculator;
 
 import java.util.Scanner;
-import java.lang.Math; // This import is needed for sqrt
+import java.lang.Math; // This import is needed for sin, cos, and other math functions
 
 public class Application {
     public static void main(String[] args) {
@@ -10,7 +10,7 @@ public class Application {
         } else {
             // No CLI arguments, ask for user input
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter operation (e.g., add, subtract, multiply, divide, sqrt, factorial):");
+            System.out.println("Enter operation (e.g., add, subtract, multiply, divide, sqrt, factorial, sin, cos):");
             String operation = scanner.next();
             // Further processing based on operation
 
@@ -65,6 +65,20 @@ public class Application {
                         System.out.println("Result: " + factorial(num));
                     }
                     break;
+                case "sin":
+                    System.out.println("Enter an angle in degrees:");
+                    double angleSin = scanner.nextDouble();
+                    // Convert from degrees to radians for Math.sin() function
+                    angleSin = Math.toRadians(angleSin);
+                    System.out.println("Result: sin(" + angleSin + ") = " + Math.sin(angleSin));
+                    break;
+                case "cos":
+                    System.out.println("Enter an angle in degrees:");
+                    double angleCos = scanner.nextDouble();
+                    // Convert from degrees to radians for Math.cos() function
+                    angleCos = Math.toRadians(angleCos);
+                    System.out.println("Result: cos(" + angleCos + ") = " + Math.cos(angleCos));
+                    break;
                 default:
                     System.out.println("Invalid operation!");
             }
@@ -73,7 +87,7 @@ public class Application {
     }
 
     public static void processCLIArguments(String[] args) {
-        // Check for the correct number of arguments
+        // check for the correct number of arguments
         if (args.length != 3) {
             System.out.println("Usage: java Application <operation> <operand1> <operand2>");
             return;
@@ -168,6 +182,5 @@ public class Application {
         return result;
     }
 }
-
 
 
