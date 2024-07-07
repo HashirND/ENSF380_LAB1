@@ -10,7 +10,7 @@ public class Application {
         } else {
             // No CLI arguments, ask for user input
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter operation (e.g., add, subtract, multiply, divide, sqrt):");
+            System.out.println("Enter operation (e.g., add, subtract, multiply, divide, sqrt, factorial):");
             String operation = scanner.next();
             // Further processing based on operation
 
@@ -56,9 +56,19 @@ public class Application {
                         System.out.println("Result: " + sqrt(number));
                     }
                     break;
+                case "factorial":
+                    System.out.println("Enter a non-negative number:");
+                    int num = scanner.nextInt(); // Ensures non-negative input (int for factorial)
+                    if (num < 0) {
+                        System.out.println("Error: Factorial is not defined for negative numbers!");
+                    } else {
+                        System.out.println("Result: " + factorial(num));
+                    }
+                    break;
                 default:
                     System.out.println("Invalid operation!");
             }
+            scanner.close(); // Closing the scanner to prevent resource leaks
         }
     }
 
@@ -136,6 +146,28 @@ public class Application {
             return Math.sqrt(number);
         }
     }
+
+    // factorial method with progress display
+    public static long factorial(int num) {
+        if (num < 0) {
+            System.out.println("Error: Factorial is not defined for negative numbers!");
+            return 0;
+        }
+        return factorialHelper(num);
+    }
+
+    // Helper method for factorial with progress display
+    private static long factorialHelper(int num) {
+        long result = 1;
+        for (int i = 1; i <= num; i++) {
+            result *= i;
+            int progress = (int) ((i / (double) num) * 100);
+            System.out.print("\rCalculating factorial: " + progress + "%");
+        }
+        System.out.println("\rCalculating factorial: 100%");
+        return result;
+    }
 }
+
 
 
