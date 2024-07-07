@@ -10,7 +10,7 @@ public class Application {
         } else {
             // No CLI arguments, ask for user input
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter operation (e.g., add, subtract, multiply, divide, sqrt, factorial, sin, cos):");
+            System.out.println("Enter operation (e.g., add, subtract, multiply, divide, sqrt, factorial, sin, cos, permutations):");
             String operation = scanner.next();
             // Further processing based on operation
 
@@ -79,6 +79,16 @@ public class Application {
                     angleCos = Math.toRadians(angleCos);
                     System.out.println("Result: cos(" + angleCos + ") = " + Math.cos(angleCos));
                     break;
+                case "permutations":
+                    System.out.println("Enter the total number of elements (n):");
+                    int n = scanner.nextInt();
+                    System.out.println("Enter the number of elements to select (k):");
+                    int k = scanner.nextInt();
+                    long permutations = calculatePermutations(n, k); // Calling the unique permutation function
+                    if (permutations != -1) {
+                        System.out.println("Number of permutations: " + permutations);
+                    }
+                    break;
                 default:
                     System.out.println("Invalid operation!");
             }
@@ -87,7 +97,7 @@ public class Application {
     }
 
     public static void processCLIArguments(String[] args) {
-        // check for the correct number of arguments
+        // Check for the correct number of arguments
         if (args.length != 3) {
             System.out.println("Usage: java Application <operation> <operand1> <operand2>");
             return;
@@ -180,6 +190,22 @@ public class Application {
         }
         System.out.println("\rCalculating factorial: 100%");
         return result;
+    }
+
+    // Unique permutation method
+    public static long calculatePermutations(int n, int k) {
+        // Handling invalid input cases
+        if (n < 0 || k < 0 || k > n) {
+            System.out.println("Error: Invalid input. n must be non-negative, and 0 <= k <= n.");
+            return -1; // Return -1 to indicate an error
+        }
+
+        long result = 1; // To store the result of the permutations
+        for (int i = 0; i < k; i++) {
+            result *= (n - i); // Multiplying n * (n-1) * ... * (n-k+1)
+        }
+
+        return result; // Returning the final result
     }
 }
 
